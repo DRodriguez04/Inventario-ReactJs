@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { getInventarios, createInventarios, updateInventarios } from '../../services/inventarioService'
 
 export const ViewInventario = () => {
@@ -39,7 +39,7 @@ export const ViewInventario = () => {
     nuevoInventario(valoresForm);
   }
 
-  return (
+  /*return (
     <div className='container-fluid'>
     <form onSubmit={(e) => handleCrearInventario (e)}>
       <legend>Crear / Actualizar el inventario</legend>
@@ -78,5 +78,5 @@ export const ViewInventario = () => {
     </tbody>
   </table>
 </div>
-  )
+  )*/
 }
