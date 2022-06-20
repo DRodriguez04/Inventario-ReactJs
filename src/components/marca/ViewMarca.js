@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getMarca, createMarca, updateMarca } from '../../services/marcaService'
+import { getMarca, createMarca } from '../../services/marcaService'
+import moment from 'moment';
 
 export const ViewMarca = () => {
 
@@ -36,9 +37,11 @@ export const ViewMarca = () => {
   const handleCrearMarca = (e) => {
     e.preventDefault();
     crearMarca(valoresForm);
+    setMarcas([ ...marcas, valoresForm ])
   }
 
   useEffect(() => { listarMarcas(); }, [])
+
   return(
     <div className='container-fluid'>
         <form onSubmit={(e) => handleCrearMarca(e) }>
@@ -51,33 +54,34 @@ export const ViewMarca = () => {
           <div className="mb-3">
             <label className="form-label">Estado</label>
             <select required name='estado' value={estado} className="form-select" onChange={(e) => handleOnChange(e) }>
-              <option defaultValue="" value="">--SELECCIONE--</option>
+              <option defaultValue value="">--SELECCIONE--</option>
               <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
             </select>
           </div>
           <button className="btn btn-primary">Guardar</button>
+          <hr/>
+          <table className="table table-success table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Fecha de Creación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                marcas.map(marca => {
+                  return <tr key={ marca._id }>
+                  <td>{ marca.nombre }</td>
+                  <td>{ marca.estado }</td>
+                  <td>{moment (marca.fechaCreacion).format('MMM-DD-YYYY HH:mm') }</td>
+                </tr>
+                })
+              }
+              </tbody>
+        </table>
       </form>
-      <hr/>
-      <table className="table table-success table-striped">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            marcas.map(marca => {
-              return <tr key={ marca._id }>
-              <td>{ marca.nombre }</td>
-              <td>{ marca.estado }</td>
-            </tr>
-            })
-          }
-          
-        </tbody>
-</table>
   </div>
   )
 
